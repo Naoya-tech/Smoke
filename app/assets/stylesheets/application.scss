@@ -41,6 +41,7 @@
     }
 
     .top{
+      padding-top: 70px;
       height: 100%;
       width: 100%;
     }
@@ -91,4 +92,11 @@
       right: 15%;
       margin: 0 auto;
       width: 50%;
+    }
+
+// 登録画面
+    .user-box {
+      padding: 30px;
+      border: 1px solid #dcdcdc;
+      background-color: #f8f8ff;
     }
