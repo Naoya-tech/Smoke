@@ -25,6 +25,10 @@
       width: 100%;
     }
 
+    header{
+      height:70px;
+    }
+
     li{
       list-style: none;
       font-size: 120%;
@@ -36,7 +40,7 @@
       text-decoration: none;
     }
 
-    .d-flex{
+    .top{
       height: 100%;
       width: 100%;
     }
@@ -47,8 +51,8 @@
     }
 
     header{
-      background-color: #000000;
-      opacity: 0.5;
+      background-color: #006284;
+      opacity: 0.9;
       position: fixed;
       top:0;
       right:0;
