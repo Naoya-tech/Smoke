@@ -7,9 +7,26 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&key=AIzaSyBBfrWqpzoPSS7b4vEwv2lDmgfy84eNs40"></script>  
   </head>
 
   <body>
-    <%= yield %>
+      <header class="shadow">
+        <h1 class="text-right mx-5 my-0 py-1"><a href="#">Smoke</a></h1>
+      </header>
+      <div class="d-flex">
+        <section class="menu mt-5 shadow-right">
+            <nav>
+              <ul>
+                <li><a href="#">ホーム</a></li>
+                <li><a href="#">サイトについて</a></li>
+                <li><a href="#">ログイン</a></li>
+                <li><a href="#">会員登録・編集</a></li>
+              </ul>
+          </nav>
+        </section>
+        <%= yield %>
+    </div>
+    
   </body>
 </html>
