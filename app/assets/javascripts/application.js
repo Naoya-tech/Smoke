@@ -27,6 +27,33 @@
             };
             var map = new google.maps.Map(mapArea, Options);  //マップを生成
 
+            var la = document.getElementById('areas_lat');
+            var areas_la = la.getAttribute('data-areas-lat');
+            var lo = document.getElementById('areas_log');
+            var areas_lo = lo.getAttribute('data-areas-log');
+            areas_la = areas_la.replace('[', '')
+            areas_la = areas_la.replace(']', '').split(', ')
+            areas_lo = areas_lo.replace('[', '')
+            areas_lo = areas_lo.replace(']', '').split(', ')
+            
+            var i = 0;
+            var len = areas_la.length;
+            var features = [];
+            for (i = 0; i < len; i++) {
+              features[i] =
+              {
+                position: new google.maps.LatLng(areas_la[i], areas_lo[i]),
+                type: 'info'
+              }
+            }
+
+            for (i = 0; i < features.length; i++) {
+              var marker = new google.maps.Marker({
+                position: features[i].position,
+                map: map
+              });
+            }
+
             // ボタンが押されたときのみピンが追加される
             $('.button').on('click', function(){
               //フェードインする
@@ -38,7 +65,13 @@
               map.addListener('click', function(e) {
                 getClickLatLng(e.latLng, map);
               });
+              
               function getClickLatLng(lat_lng, map) {
+
+                // 座標を表示
+                $('#lat_test').val([lat_lng.lat()]);
+                $('#lng_test').val([lat_lng.lng()]);
+
 
                 // マーカーを設置
                 var marker = new google.maps.Marker({
@@ -46,7 +79,15 @@
                   map: map
                 });
 
+                $('#myModal').toggleClass('visible');
+
+                $('.close').on('click', function () {
+                  $('#myModal').removeClass('visible');
+                });
+
               }
+              
+              
             });
 
             // 現在地のマーカー
@@ -83,3 +124,15 @@
           //   //解説1：マップを生成するMapクラス
           //   var map = new google.maps.Map(mapArea, mapOptions);
           // }
+
+          // $(function(){
+          //   google.maps.event.addListener(maps, 'idle', function(){
+          //     pos = map_canvas.getBounds()
+          //     north = pos.getNorthEast().lat()
+          //     south = pos.getSouthWest().lat()
+          //     east = pos.getNorthEast().lng()
+          //     west = pos.getSouthWest().lng()
+          //     // # コントローラーに値をGETパラメータで渡す
+          //     $.getScript("/areas/marker?&north=#{north}&south=#{south}&east=#{east}&west=#{west}")
+          //   });
+          // });

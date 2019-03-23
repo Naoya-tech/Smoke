@@ -1,7 +1,36 @@
 <section class="main">
+          <div id="areas_lat" data-areas-lat="<%= @areas_lat %>" style="display: none;"></div>
+          <div id="areas_log" data-areas-log="<%= @areas_log %>" style="display: none;"></div>
           <div id="maps" class="maps"></div>
           <button class="button shadow" type="button" data-toggle="modal" data-target="#demoNormalModal">投稿する</button>
           <div class="click-massage bg-white p-2">
             <h2>見つけた喫煙所の場所をクリックしてください。</h2>
           </div>
 </section>
+
+<div class="fading-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with model: @area, local: true, method: :post do |form| %>
+      <div class="modal-header">
+        <%= form.label :name, class: "mr-2" %>
+        <%= form.text_field :address, class: "form-control" %>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form.label :comment %>
+        <%= form.text_area :comment, class: "form-control" %>
+        <div class="d-none">
+          <%= form.text_field :latitude, id: "lat_test" %>
+          <%= form.text_field :longitude, id: "lng_test" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= form.submit '登録する', class: "btn btn-primary" %>
+      </div><!-- /.modal-footer -->
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
