@@ -27,16 +27,16 @@
             };
             var map = new google.maps.Map(mapArea, Options);  //マップを生成
 
+            // マーカーデータを地図に反映
             var la = document.getElementById('areas_lat');
-            var areas_la = la.getAttribute('data-areas-lat');
             var lo = document.getElementById('areas_log');
+            var ad = document.getElementById('areas_address');
+            var areas_la = la.getAttribute('data-areas-lat');
             var areas_lo = lo.getAttribute('data-areas-log');
-            areas_la = areas_la.replace('[', '')
-            areas_la = areas_la.replace(']', '').split(', ')
-            areas_lo = areas_lo.replace('[', '')
-            areas_lo = areas_lo.replace(']', '').split(', ')
-            
-            var i = 0;
+            var areas_ad = ad.getAttribute('data-areas-address');
+            areas_la = areas_la.replace('[', '').replace(']', '').split(', ')
+            areas_lo = areas_lo.replace('[', '').replace(']', '').split(', ')
+            areas_ad = areas_ad.replace('[', '').replace(']', '').replace('""','').split(', ')
             var len = areas_la.length;
             var features = [];
             for (i = 0; i < len; i++) {
@@ -50,10 +50,10 @@
             for (i = 0; i < features.length; i++) {
               var marker = new google.maps.Marker({
                 position: features[i].position,
-                map: map
+                map: map 
               });
             }
-
+            
             // ボタンが押されたときのみピンが追加される
             $('.button').on('click', function(){
               //フェードインする
@@ -63,7 +63,7 @@
               });
               // ピンを追加
               map.addListener('click', function(e) {
-                getClickLatLng(e.latLng, map);
+                getClickLatLng(e.latLng, map)
               });
               
               function getClickLatLng(lat_lng, map) {
@@ -84,10 +84,22 @@
                 $('.close').on('click', function () {
                   $('#myModal').removeClass('visible');
                 });
-
               }
               
-              
+            });
+
+            for (i = 0; i < len; i++) {
+              //マーカーウィンドウ
+              var infowin = new google.maps.InfoWindow({ content: areas_ad[i] });
+            }
+            // mouseoverイベントを取得するListenerを追加
+            google.maps.event.addListener(marker, 'mouseover', function () {
+              infowin.open(map, marker);
+            });
+
+            // mouseoutイベントを取得するListenerを追加
+            google.maps.event.addListener(marker, 'mouseout', function () {
+              infowin.close();
             });
 
             // 現在地のマーカー

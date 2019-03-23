@@ -3,21 +3,16 @@ class AreasController < ApplicationController
     @areas = Area.all
     @areas_lat = []
     @areas_log = []
+    @areas_address = []
     @areas.each do |area|
       @areas_lat.push(area.latitude)
       @areas_log.push(area.longitude)
+      @areas_address.push(area.address)
     end
     @area = Area.new
   end
-  def marker
-    # 北から南、東から西の範囲をつくる
-    lat = Range.new(*[params["north"], params["south"]].sort)
-    lon = Range.new(*[params["east"], params["west"]].sort)
-    # データ取得
-    @locations = Area.where(latitude: lat, longitude: lon)
-  end
-  def new
 
+  def new
   end
 
   def create
@@ -29,6 +24,6 @@ class AreasController < ApplicationController
   private
 
   def area_params # ストロングパラメータを定義する
-    params.require(:area).permit(:address, :latitude, :longitude, :comment)
+    params.require(:area).permit(:address, :latitude, :longitude, :comment, :status)
   end
 end
