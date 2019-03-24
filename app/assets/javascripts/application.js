@@ -23,7 +23,11 @@
             var Options = {
               zoom: 15,      //地図の縮尺値
               center: MyLatLng,    //地図の中心座標
-              mapTypeId: 'roadmap'   //地図の種類
+              mapTypeId: 'roadmap',   //地図の種類
+              mapTypeControl: false, //マップタイプ コントロール
+              fullscreenControl: false, //全画面表示コントロール
+              streetViewControl: false, //ストリートビュー コントロール
+              zoomControl: false, //ズーム コントロール
             };
             var map = new google.maps.Map(mapArea, Options);  //マップを生成
 
@@ -36,24 +40,24 @@
             var areas_ad = ad.getAttribute('data-areas-address');
             areas_la = areas_la.replace('[', '').replace(']', '').split(', ')
             areas_lo = areas_lo.replace('[', '').replace(']', '').split(', ')
-            areas_ad = areas_ad.replace('[', '').replace(']', '').replace('""','').split(', ')
+            areas_ad = areas_ad.replace('["', '').replace('"]', '').split('", "')
             var len = areas_la.length;
             var features = [];
             for (i = 0; i < len; i++) {
               features[i] =
               {
                 position: new google.maps.LatLng(areas_la[i], areas_lo[i]),
-                type: 'info'
               }
             }
-
             for (i = 0; i < features.length; i++) {
-              var marker = new google.maps.Marker({
+              var marker_free = new google.maps.Marker({
                 position: features[i].position,
                 map: map 
               });
             }
-            //ろぐいんゆーざーにたてられたぴんはでざいんをかえる
+            console.log(features.position);
+
+            // ログインユーザーのみのピンの色を変更する
 
             // マーカーデータを地図に反映(ログインユーザー)
             var la_login = document.getElementById('login_areas_lat');
@@ -64,15 +68,14 @@
             var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
             areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
             areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
-            areas_ad_login = areas_ad_login.replace('[', '').replace(']', '').replace('""', '').split(', ')
+            areas_ad_login = areas_ad_login.replace('["', '').replace('"]', '').split('", "')
+
             var len_login = areas_la_login.length;
             var features_login = [];
-
             for (i = 0; i < len_login; i++) {
               features_login[i] =
                 {
                   position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
-                  type: 'info'
                 }
             }
             var image = {
@@ -88,7 +91,7 @@
             };
 
             for (i = 0; i < features_login.length; i++) {
-              var marker = new google.maps.Marker({
+              var marker_user = new google.maps.Marker({
                 position: features_login[i].position,
                 map: map,
                 icon: image
@@ -115,7 +118,7 @@
                 $('#lng_test').val([lat_lng.lng()]);
 
 
-                // マーカーを設置
+                // マーカーを設置(このピンはデータベースには反映されない)
                 var marker = new google.maps.Marker({
                   position: lat_lng,
                   map: map
@@ -129,21 +132,21 @@
               }
               
             });
-
-            for (i = 0; i < len; i++) {
-              //マーカーウィンドウ
-              var infowin = new google.maps.InfoWindow({ content: areas_ad[i] });
+            console.log(areas_ad);
+            areas_ad.forEach(function (element) {
               
+              //マーカーウィンドウ
+              var infowin = new google.maps.InfoWindow({ content: element });
               // mouseoverイベントを取得するListenerを追加
-              google.maps.event.addListener(marker, 'mouseover', function () {
-                infowin.open(map, marker);
+              google.maps.event.addListener(marker_free, 'mouseover', function () {
+                infowin.open(map, marker_free);
               });
 
               // mouseoutイベントを取得するListenerを追加
-              google.maps.event.addListener(marker, 'mouseout', function () {
+              google.maps.event.addListener(marker_free, 'mouseout', function () {
                 infowin.close();
               });
-            }
+            });
 
             // 現在地のマーカー
             myLocation = new google.maps.Marker({
