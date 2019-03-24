@@ -53,7 +53,49 @@
                 map: map 
               });
             }
-            
+            // ろぐいんゆーざーにたてられたぴんはでざいんをかえる
+            // var iconBase =
+            //   'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+
+            // var icons = {
+            //   parking: {
+            //     icon: iconBase + 'parking_lot_maps.png'
+            //   },
+            //   library: {
+            //     icon: iconBase + 'library_maps.png'
+            //   },
+            //   info: {
+            //     icon: iconBase + 'info-i_maps.png'
+            //   }
+            // };
+            // // マーカーデータを地図に反映
+            // var la_login = document.getElementById('areas_lat');
+            // var lo_login = document.getElementById('areas_log');
+            // var ad_login = document.getElementById('areas_address');
+            // var areas_la_login = la_login.getAttribute('data-areas-lat');
+            // var areas_lo_login = lo_login.getAttribute('data-areas-log');
+            // var areas_ad_login = ad_login.getAttribute('data-areas-address');
+            // areas_la_login = areas_la.replace('[', '').replace(']', '').split(', ')
+            // areas_lo_login = areas_lo.replace('[', '').replace(']', '').split(', ')
+            // areas_ad_login = areas_ad.replace('[', '').replace(']', '').replace('""', '').split(', ')
+            // var len = areas_la_login.length;
+            // var features_login = [];
+            // for (i = 0; i < len; i++) {
+            //   features_login[i] =
+            //     {
+            //       position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
+            //       type: 'info'
+            //     }
+            // }
+
+            // for (i = 0; i < features.length; i++) {
+            //   var marker = new google.maps.Marker({
+            //     position: features_login[i].position,
+            //     map: map
+            //   });
+            // }
+
+
             // ボタンが押されたときのみピンが追加される
             $('.button').on('click', function(){
               //フェードインする
@@ -91,16 +133,17 @@
             for (i = 0; i < len; i++) {
               //マーカーウィンドウ
               var infowin = new google.maps.InfoWindow({ content: areas_ad[i] });
-            }
-            // mouseoverイベントを取得するListenerを追加
-            google.maps.event.addListener(marker, 'mouseover', function () {
-              infowin.open(map, marker);
-            });
+              
+              // mouseoverイベントを取得するListenerを追加
+              google.maps.event.addListener(marker, 'mouseover', function () {
+                infowin.open(map, marker);
+              });
 
-            // mouseoutイベントを取得するListenerを追加
-            google.maps.event.addListener(marker, 'mouseout', function () {
-              infowin.close();
-            });
+              // mouseoutイベントを取得するListenerを追加
+              google.maps.event.addListener(marker, 'mouseout', function () {
+                infowin.close();
+              });
+            }
 
             // 現在地のマーカー
             myLocation = new google.maps.Marker({

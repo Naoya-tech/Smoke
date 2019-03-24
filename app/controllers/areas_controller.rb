@@ -1,6 +1,6 @@
 class AreasController < ApplicationController
   def index 
-    @areas = Area.all
+    @areas = Area.where(logged_in: true)
     @areas_lat = []
     @areas_log = []
     @areas_address = []
@@ -9,6 +9,15 @@ class AreasController < ApplicationController
       @areas_log.push(area.longitude)
       @areas_address.push(area.address)
     end
+    # @login_areas = Area.all
+    # @login_areas_lat = []
+    # @login_areas_log = []
+    # @login_areas_address = []
+    # @login_areas.each do |area|
+    #   @login_areas_lat.push(area.latitude)
+    #   @login_areas_log.push(area.longitude)
+    #   @login_areas_address.push(area.address)
+    # end
     @area = Area.new
   end
 
@@ -17,6 +26,9 @@ class AreasController < ApplicationController
 
   def create
     @area = Area.new(area_params)
+    # if current_user
+    #   @area.logged_in = true
+    # end
     @area.save
     redirect_to "/"
   end
