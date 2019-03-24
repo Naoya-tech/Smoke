@@ -53,47 +53,47 @@
                 map: map 
               });
             }
-            // ろぐいんゆーざーにたてられたぴんはでざいんをかえる
-            // var iconBase =
-            //   'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+            //ろぐいんゆーざーにたてられたぴんはでざいんをかえる
 
-            // var icons = {
-            //   parking: {
-            //     icon: iconBase + 'parking_lot_maps.png'
-            //   },
-            //   library: {
-            //     icon: iconBase + 'library_maps.png'
-            //   },
-            //   info: {
-            //     icon: iconBase + 'info-i_maps.png'
-            //   }
-            // };
-            // // マーカーデータを地図に反映
-            // var la_login = document.getElementById('areas_lat');
-            // var lo_login = document.getElementById('areas_log');
-            // var ad_login = document.getElementById('areas_address');
-            // var areas_la_login = la_login.getAttribute('data-areas-lat');
-            // var areas_lo_login = lo_login.getAttribute('data-areas-log');
-            // var areas_ad_login = ad_login.getAttribute('data-areas-address');
-            // areas_la_login = areas_la.replace('[', '').replace(']', '').split(', ')
-            // areas_lo_login = areas_lo.replace('[', '').replace(']', '').split(', ')
-            // areas_ad_login = areas_ad.replace('[', '').replace(']', '').replace('""', '').split(', ')
-            // var len = areas_la_login.length;
-            // var features_login = [];
-            // for (i = 0; i < len; i++) {
-            //   features_login[i] =
-            //     {
-            //       position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
-            //       type: 'info'
-            //     }
-            // }
+            // マーカーデータを地図に反映(ログインユーザー)
+            var la_login = document.getElementById('login_areas_lat');
+            var lo_login = document.getElementById('login_areas_log');
+            var ad_login = document.getElementById('login_areas_address');
+            var areas_la_login = la_login.getAttribute('login-data-areas-lat');
+            var areas_lo_login = lo_login.getAttribute('login-data-areas-log');
+            var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
+            areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
+            areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
+            areas_ad_login = areas_ad_login.replace('[', '').replace(']', '').replace('""', '').split(', ')
+            var len_login = areas_la_login.length;
+            var features_login = [];
 
-            // for (i = 0; i < features.length; i++) {
-            //   var marker = new google.maps.Marker({
-            //     position: features_login[i].position,
-            //     map: map
-            //   });
-            // }
+            for (i = 0; i < len_login; i++) {
+              features_login[i] =
+                {
+                  position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
+                  type: 'info'
+                }
+            }
+            var image = {
+              url: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+              // This marker is 20 pixels wide by 32 pixels high.
+              size: new google.maps.Size(20, 150),
+              // The origin for this image is (0, 0).
+              origin: new google.maps.Point(0, 0),
+              // The anchor for this image is the base of the flagpole at (0, 32).
+              anchor: new google.maps.Point(0, 32),
+
+              scaledSize: new google.maps.Size(30, 50)
+            };
+
+            for (i = 0; i < features_login.length; i++) {
+              var marker = new google.maps.Marker({
+                position: features_login[i].position,
+                map: map,
+                icon: image
+              });
+            }
 
 
             // ボタンが押されたときのみピンが追加される
