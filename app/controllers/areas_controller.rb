@@ -9,8 +9,10 @@ class AreasController < ApplicationController
       @areas_log.push(area.longitude)
       @areas_address.push(area.address)
     end
-    begin  
+    begin
+      
       @login_areas = Area.where(logged_in: true)
+      
       @login_areas_lat = []
       @login_areas_log = []
       @login_areas_address = []
