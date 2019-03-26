@@ -5,6 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+config.assets.initialize_on_precompile = false
 
 module Smoke
   class Application < Rails::Application
@@ -17,6 +18,5 @@ module Smoke
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.assets.initialize_on_precompile = false
   end
 end
