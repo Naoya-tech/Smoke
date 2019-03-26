@@ -1,0 +1,36 @@
+<div class="fading-box" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with model: @area, local: true, method: :post do |form| %>
+      <div class="modal-header">
+        <%= form.label :name, class: "mr-2" %>
+        <%= form.text_field :address, class: "form-control" %>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= form.radio_button(:status, "喫煙所") %>
+          <%= form.label(:status, "喫煙所", value: "喫煙所")  %>
+          <%= form.radio_button(:status, "レストラン") %>
+          <%= form.label(:status, "レストラン", value: "レストラン")  %>
+          <%= form.radio_button(:status, "コンビニ")  %>
+          <%= form.label(:status, "コンビニ", value: "コンビニ")  %>
+          <%= form.radio_button(:status, "駅") %>
+          <%= form.label(:status, "駅", value: "駅")  %>
+        </p>
+        <%= form.label :comment %>
+        <%= form.text_area :comment, class: "form-control" %>
+        <div class="d-none">
+          <%= form.text_field :latitude, id: "lat_test" %>
+          <%= form.text_field :longitude, id: "lng_test" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= form.submit '登録する', class: "btn btn-primary" %>
+      </div><!-- /.modal-footer -->
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
