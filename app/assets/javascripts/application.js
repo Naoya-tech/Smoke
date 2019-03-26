@@ -30,6 +30,15 @@ let success = (pos) => {
     zoomControl: false, //ズーム コントロール
   };
   var map = new google.maps.Map(mapArea, Options);  //マップを生成
+  // 現在地のマーカー
+  myLocation = new google.maps.Marker({
+    map: map,
+    position: Options.center, //Optionsから座標を指定
+    icon: {
+      url: 'https://higemura.com/wordpress/wp-content/uploads/2018/10/ic_gmap_mylocation.svg', // icon画像（png画像でも可）
+      scaledSize: new google.maps.Size(32, 32) // 表示するアイコンサイズ
+    },
+  });
 
   // マーカーデータを地図に反映
   var la = document.getElementById('areas_lat');
@@ -75,11 +84,41 @@ let success = (pos) => {
       }
     });
   }
-  console.log(infowin_free);
 
 // ログインユーザーのみのピンの色を変更する
+  // ボタンが押されたときのみピンが追加される
+  $('.button').on('click', function () {
+    //フェードインする
+    $('.click-massage').fadeIn("500", function () {
+      //コールバックで3秒後にフェードアウト	
+      $(this).delay(3000).fadeOut("500");
+    });
+    // ピンを追加
+    map.addListener('click', function (e) {
+      getClickLatLng(e.latLng, map)
+    });
+
+    function getClickLatLng(lat_lng, map) {
+
+      // 座標を表示
+      $('#lat_test').val([lat_lng.lat()]);
+      $('#lng_test').val([lat_lng.lng()]);
 
 
+      // マーカーを設置(このピンはデータベースには反映されない)
+      var marker = new google.maps.Marker({
+        position: lat_lng,
+        map: map
+      });
+
+      $('#myModal').toggleClass('visible');
+
+      $('.close').on('click', function () {
+        $('#myModal').removeClass('visible');
+      });
+    }
+
+  });
   // マーカーデータを地図に反映(ログインユーザー)
   var la_login = document.getElementById('login_areas_lat');
   var lo_login = document.getElementById('login_areas_log');
@@ -87,7 +126,6 @@ let success = (pos) => {
   var areas_la_login = la_login.getAttribute('login-data-areas-lat');
   var areas_lo_login = lo_login.getAttribute('login-data-areas-log');
   var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
-  
   areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
   areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
   areas_ad_login = areas_ad_login.replace('["', '').replace('"]', '').split('", "')
@@ -158,51 +196,6 @@ let success = (pos) => {
 
 //   console.log(infowin_login);
 //   google.maps.event.addDomListener(window, 'load', map);
-
-
-
-  // ボタンが押されたときのみピンが追加される
-  $('.button').on('click', function(){
-    //フェードインする
-    $('.click-massage').fadeIn("500", function () {
-      //コールバックで3秒後にフェードアウト	
-      $(this).delay(3000).fadeOut("500");
-    });
-    // ピンを追加
-    map.addListener('click', function(e) {
-      getClickLatLng(e.latLng, map)
-    });
-    
-    function getClickLatLng(lat_lng, map) {
-
-      // 座標を表示
-      $('#lat_test').val([lat_lng.lat()]);
-      $('#lng_test').val([lat_lng.lng()]);
-
-
-      // マーカーを設置(このピンはデータベースには反映されない)
-      var marker = new google.maps.Marker({
-        position: lat_lng,
-        map: map
-      });
-
-      $('#myModal').toggleClass('visible');
-
-      $('.close').on('click', function () {
-        $('#myModal').removeClass('visible');
-      });
-    }
-    
-  });
-  // 現在地のマーカー
-  myLocation = new google.maps.Marker({
-    map: map, 
-    position: Options.center, //Optionsから座標を指定
-    icon: {
-      url: 'https://higemura.com/wordpress/wp-content/uploads/2018/10/ic_gmap_mylocation.svg', // icon画像（png画像でも可）
-      scaledSize: new google.maps.Size(32, 32) // 表示するアイコンサイズ
-    },
-  });
 }
 // 位置情報取得が失敗したら
 let error = (err) => {
@@ -210,7 +203,6 @@ let error = (err) => {
   msg = 'エラーが発生しました: ' + err;
   console.log(msg);
 }
-
 // 位置情報を取得
 navigator.geolocation.getCurrentPosition(success, error);
             
