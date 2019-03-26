@@ -1,5 +1,35 @@
-<header class="d-flex justify-content-end px-5">
-  <form class="form-inline my-lg-0 w-50">
+<header class="d-flex px-5">
+  <div id="nav-drawer">
+      <input id="nav-input" type="checkbox" class="nav-unshown">
+      <label id="nav-open" for="nav-input"><span></span></label>
+      <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+      <div id="nav-content">
+        <form class="form-inline search-form-res">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <ul>
+          <li><a href="/">ホーム</a></li>
+          <li><a href="#">サイトについて</a></li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to "会員情報", edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "会員登録", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+  </div>
+  <form class="form-inline my-lg-0 w-50 search-form-main">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
