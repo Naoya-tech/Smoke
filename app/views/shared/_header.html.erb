@@ -4,10 +4,11 @@
       <label id="nav-open" for="nav-input"><span></span></label>
       <label class="nav-unshown" id="nav-close" for="nav-input"></label>
       <div id="nav-content">
-        <form class="form-inline search-form-res">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-res"  do |f| %>
+          <%=  f.search_field :query, class: "form-controlmr-sm-2", type:"search", placeholder:"例:レストラン" %>
+          <button class="btn btn-info" type="submit">検索</button>
+        <% end %>
+      </div>
         <ul>
           <li><a href="/">ホーム</a></li>
           <li><a href="#">サイトについて</a></li>
@@ -29,9 +30,9 @@
         </ul>
       </div>
   </div>
-  <form class="form-inline my-lg-0 w-50 search-form-main">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
+  <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-main w-50"  do |f| %>
+    <%=  f.search_field :query, class: "form-controlmr-sm-2", type:"search", placeholder:"例:レストラン" %>
+    <button class="btn btn-info" type="submit">検索</button>
+  <% end %>
   <h1 class="my-0 py-2"><a href="#">Smoke</a></h1>
 </header>

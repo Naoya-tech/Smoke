@@ -29,6 +29,26 @@ class AreasController < ApplicationController
   def new
   end
 
+  def search
+    @areas = Area.where(status: params[:query])
+    
+    @areas_search = []
+    
+    @areas.each do |area|
+      @areas_search.push(area.address)
+    end
+    @areas_lat = []
+    @areas_log = []
+    @areas_address = []
+    @areas.each do |area|
+      @areas_lat.push(area.latitude)
+      @areas_log.push(area.longitude)
+      @areas_address.push(area.address)
+    end
+    render "index"
+    
+  end
+
   def create
     @area = Area.new(area_params)
     @area.save

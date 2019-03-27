@@ -19,6 +19,8 @@
 //= require_tree .
 let success = (pos) => {
   var MyLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+  console.log(pos.coords.latitude);
+  console.log(pos.coords.longitude);
   var mapArea = document.getElementById('maps');
   var Options = {
     zoom: 19,      //地図の縮尺値
@@ -137,7 +139,6 @@ let success = (pos) => {
       {
         position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
       }
-      console.log(features_login[i].position);
   }
   var image = {
     url: 'assets/pin.png',
@@ -159,7 +160,6 @@ let success = (pos) => {
       icon: image
     });
   }
-  console.log(marker_login);
   var infowin_login = [];
   for (var i = 0; i < len_login; i++) {
     var contentString = '<div id="content">' +
@@ -201,7 +201,6 @@ let success = (pos) => {
 let error = (err) => {
   // エラーメッセージ
   msg = 'エラーが発生しました: ' + err;
-  console.log(msg);
 }
 // 位置情報を取得
 navigator.geolocation.getCurrentPosition(success, error);
