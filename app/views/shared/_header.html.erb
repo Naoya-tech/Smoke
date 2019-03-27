@@ -1,14 +1,13 @@
-<header class="d-flex px-5">
+<header class="d-flex">
   <div id="nav-drawer">
       <input id="nav-input" type="checkbox" class="nav-unshown">
       <label id="nav-open" for="nav-input"><span></span></label>
       <label class="nav-unshown" id="nav-close" for="nav-input"></label>
       <div id="nav-content">
-        <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-res"  do |f| %>
-          <%=  f.search_field :query, class: "form-controlmr-sm-2", type:"search", placeholder:"例:レストラン" %>
-          <button class="btn btn-info" type="submit">検索</button>
+        <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-res mt-3"  do |f| %>
+          <%=  f.search_field :query, class: "form-control mr-sm-2", type:"search", placeholder:"例:レストラン" %>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         <% end %>
-      </div>
         <ul>
           <li><a href="/">ホーム</a></li>
           <li><a href="#">サイトについて</a></li>
@@ -31,8 +30,8 @@
       </div>
   </div>
   <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-main w-50"  do |f| %>
-    <%=  f.search_field :query, class: "form-controlmr-sm-2", type:"search", placeholder:"例:レストラン" %>
-    <button class="btn btn-info" type="submit">検索</button>
+    <%=  f.search_field :query, class: "form-control mr-sm-2", type:"search", placeholder:"例:レストラン" %>
+    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
   <% end %>
   <h1 class="my-0 py-2"><a href="#">Smoke</a></h1>
 </header>

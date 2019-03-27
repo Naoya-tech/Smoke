@@ -32,6 +32,13 @@ let success = (pos) => {
     zoomControl: false, //ズーム コントロール
   };
   var map = new google.maps.Map(mapArea, Options);  //マップを生成
+  
+  $(function(){
+    $("#setMypo").on('click', function(){
+      map.setCenter(MyLatLng);
+    });
+  });
+  
   // 現在地のマーカー
   myLocation = new google.maps.Marker({
     map: map,
@@ -125,14 +132,23 @@ let success = (pos) => {
   var la_login = document.getElementById('login_areas_lat');
   var lo_login = document.getElementById('login_areas_log');
   var ad_login = document.getElementById('login_areas_address');
+  console.log(la_login);
   var areas_la_login = la_login.getAttribute('login-data-areas-lat');
+  console.log(areas_la_login);
   var areas_lo_login = lo_login.getAttribute('login-data-areas-log');
   var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
   areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
   areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
   areas_ad_login = areas_ad_login.replace('["', '').replace('"]', '').split('", "')
   
-  var len_login = areas_la_login.length;
+  console.log(areas_la_login)
+
+  var new_areas_la_login = [];
+  for (var i = 0; i < areas_la_login.length; ++i) {
+    if (areas_la_login[i] !== "") new_areas_la_login.push(areas_la_login[i]);
+  }
+  var len_login = new_areas_la_login.length;
+  console.log("areas_la_login", areas_la_login)
   var features_login = [];
   for (i = 0; i < len_login; i++) {
     features_login[i] =
@@ -140,27 +156,22 @@ let success = (pos) => {
         position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
       }
   }
-  var image = {
-    url: 'assets/pin.png',
-    // This marker is 20 pixels wide by 32 pixels high.
-    size: new google.maps.Size(35, 45),
-    // The origin for this image is (0, 0).
-    origin: new google.maps.Point(0, 0),
-    // The anchor for this image is the base of the flagpole at (0, 32).
-    anchor: new google.maps.Point(0, 32),
-
-    scaledSize: new google.maps.Size(45, 45)
-  };
 
   var marker_login = []
   for (i = 0; i < features_login.length; i++) {
       marker_login[i] = new google.maps.Marker({
       position: features_login[i].position,
       map: map,
-      icon: image
+      icon: new google.maps.MarkerImage(
+        '/assets/pin.png',
+        new google.maps.Size(35, 45),    //マーカー画像のサイズ
+        new google.maps.Point(0, 0),     //位置（0,0で固定）
+        // new google.maps.Point(値x, 値y), //位置（任意の調整値）
+        ),
     });
   }
   var infowin_login = [];
+  console.log("lenlogin", len_login)
   for (var i = 0; i < len_login; i++) {
     var contentString = '<div id="content">' +
       '<h2 id="firstHeading" class="firstHeading">'+areas_ad_login[i]+'</h2>' +
@@ -204,30 +215,3 @@ let error = (err) => {
 }
 // 位置情報を取得
 navigator.geolocation.getCurrentPosition(success, error);
-            
-            
-          //   function initMap() {
-          //   //解説2：変数
-          //   var mapPosition = new google.maps.LatLng(35.170662, 136.923430);
-          //   var mapArea = document.getElementById('maps');
-          //   var mapOptions = {
-          //     center: mapPosition,
-          //     zoom: 15,
-          //     mapTypeId: 'roadmap'
-          //   };
-
-          //   //解説1：マップを生成するMapクラス
-          //   var map = new google.maps.Map(mapArea, mapOptions);
-          // }
-
-          // $(function(){
-          //   google.maps.event.addListener(maps, 'idle', function(){
-          //     pos = map_canvas.getBounds()
-          //     north = pos.getNorthEast().lat()
-          //     south = pos.getSouthWest().lat()
-          //     east = pos.getNorthEast().lng()
-          //     west = pos.getSouthWest().lng()
-          //     // # コントローラーに値をGETパラメータで渡す
-          //     $.getScript("/areas/marker?&north=#{north}&south=#{south}&east=#{east}&west=#{west}")
-          //   });
-          // });

@@ -51,6 +51,9 @@ class AreasController < ApplicationController
 
   def create
     @area = Area.new(area_params)
+    if current_user
+      @area.logged_in = true
+    end
     @area.save
     redirect_to "/"
   end
