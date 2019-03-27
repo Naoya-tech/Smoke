@@ -19,8 +19,6 @@
 //= require_tree .
 let success = (pos) => {
   var MyLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-  console.log(pos.coords.latitude);
-  console.log(pos.coords.longitude);
   var mapArea = document.getElementById('maps');
   var Options = {
     zoom: 19,      //地図の縮尺値
@@ -132,23 +130,19 @@ let success = (pos) => {
   var la_login = document.getElementById('login_areas_lat');
   var lo_login = document.getElementById('login_areas_log');
   var ad_login = document.getElementById('login_areas_address');
-  console.log(la_login);
   var areas_la_login = la_login.getAttribute('login-data-areas-lat');
-  console.log(areas_la_login);
   var areas_lo_login = lo_login.getAttribute('login-data-areas-log');
   var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
   areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
   areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
   areas_ad_login = areas_ad_login.replace('["', '').replace('"]', '').split('", "')
   
-  console.log(areas_la_login)
-
   var new_areas_la_login = [];
   for (var i = 0; i < areas_la_login.length; ++i) {
-    if (areas_la_login[i] !== "") new_areas_la_login.push(areas_la_login[i]);
+    if (areas_la_login[i] !== "") 
+      new_areas_la_login.push(areas_la_login[i]);
   }
   var len_login = new_areas_la_login.length;
-  console.log("areas_la_login", areas_la_login)
   var features_login = [];
   for (i = 0; i < len_login; i++) {
     features_login[i] =
@@ -171,7 +165,6 @@ let success = (pos) => {
     });
   }
   var infowin_login = [];
-  console.log("lenlogin", len_login)
   for (var i = 0; i < len_login; i++) {
     var contentString = '<div id="content">' +
       '<h2 id="firstHeading" class="firstHeading">'+areas_ad_login[i]+'</h2>' +
@@ -188,25 +181,6 @@ let success = (pos) => {
       
   }
 
-//   var marker_login = new Array();
-//   //マーカーを配置するループ
-//   for (i = 0; i < len_login; i++) {
-//     marker_login[i] = new google.maps.Marker({
-//       position: new google.maps.LatLng(areas_la_login[i], areas_lo_login[i]),
-//       map: map,
-//       icon: image
-//     });
-//     infowin_login(marker_login[i], areas_ad_login[i]);
-//   }
-
-// function infowin_login(marker, name) {
-//   new google.maps.InfoWindow({
-//     content: name
-//   }).open(marker.getMap(), marker);
-// }
-
-//   console.log(infowin_login);
-//   google.maps.event.addDomListener(window, 'load', map);
 }
 // 位置情報取得が失敗したら
 let error = (err) => {

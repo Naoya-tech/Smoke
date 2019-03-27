@@ -14,15 +14,6 @@
         <%= f.text_field :nick_name, class: "form-control" %>
       </div>
 
-      <% if current_user.avatar.attached? %>
-        <%= image_tag current_user.avatar.variant(resize: "300x300"), class: "img-thumbnail" %>
-      <% end %>
-
-      <div class="form-group">
-        <%= f.label :avatar %>
-        <%= f.file_field :avatar, class: "form-control" %>
-      </div>
-
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
@@ -32,7 +23,7 @@
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         <% if @minimum_password_length %>
           <br />
-          <em><%= t(".minimum_password_length", length: @minimum_password_length) %></em>
+          <em><%= t(".minimum_password_length_6", length: @minimum_password_length) %></em>
         <% end %>
       </div>
 
@@ -46,14 +37,14 @@
         <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
       </div>
 
-      <div class="form-group">
+      <div class="form-group form-inline d-inline">
         <%= f.submit "更新", class: "btn btn-primary" %>
       </div>
-    <% end %>
 
-    <div class="form-inline mt-2">
-      <%= button_to t(".account_delete"), registration_path(resource_name), data: { confirm: t(".confirm") }, method: :delete, class: "btn btn-warning" %>
-      <%= link_to t(".return"), :back, class: "btn btn-secondary ml-2" %>
+      <div class="form-inline mt-2 d-inline">
+      <%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete, class: "btn btn-warning" %>
+      <%= link_to "戻る", :back, class: "btn btn-secondary" %>
     </div>
+    <% end %>
   </div>
 </div>
