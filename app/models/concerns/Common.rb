@@ -1,13 +1,13 @@
 module Common
   extend ActiveSupport::Concern
   
-  def free_user_info
-    @areas.each do |area|
-      @areas_lat.push(area.latitude)
-      @areas_log.push(area.longitude)
-      @areas_address.push(area.address)
-      @areas_comment.push(area.comment)
-      @areas_status.push(area.status)
+  def free_user_info(areas, la, lo, ad, cm, st)
+    areas.each do |area|
+      la.push(area.latitude)
+      lo.push(area.longitude)
+      ad.push(area.address)
+      cm.push(area.comment)
+      st.push(area.status)
     end
   end
 

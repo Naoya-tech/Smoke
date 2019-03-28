@@ -8,7 +8,7 @@ class AreasController < ApplicationController
     @areas_address = []
     @areas_comment = []
     @areas_status = []
-    free_user_info
+    free_user_info(@areas, @areas_lat, @areas_log, @areas_address, @areas_comment, @areas_status)
     begin 
       @login_areas = Area.where(logged_in: true)
       @login_areas_lat = []
