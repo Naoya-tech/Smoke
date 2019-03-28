@@ -4,22 +4,29 @@ class AreasController < ApplicationController
     @areas_lat = []
     @areas_log = []
     @areas_address = []
+    @areas_comment = []
+    @areas_status = []
     @areas.each do |area|
       @areas_lat.push(area.latitude)
       @areas_log.push(area.longitude)
       @areas_address.push(area.address)
+      @areas_comment.push(area.comment)
+      @areas_status.push(area.status)
     end
     begin
       
       @login_areas = Area.where(logged_in: true)
-      
       @login_areas_lat = []
       @login_areas_log = []
       @login_areas_address = []
+      @login_areas_comment = []
+      @login_areas_status = []
       @login_areas.each do |area|
         @login_areas_lat.push(area.latitude)
         @login_areas_log.push(area.longitude)
         @login_areas_address.push(area.address)
+        @login_areas_comment.push(area.comment)
+        @login_areas_status.push(area.status)
       end
     rescue
     end

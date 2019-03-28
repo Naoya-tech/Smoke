@@ -18,6 +18,7 @@
       overflow-x: hidden;
       height: 100%;
       width: 100%;
+      font-family: Helvetica Neue, Hiragino Kaku Gothic ProN, Meiryo, sans-serif;
     }
   
     body {
@@ -27,8 +28,14 @@
 
     header{
       height:70px;
-      justify-content: flex-end;
       padding:0 5%;
+      width: 100%;
+      background-color: #006284;
+      justify-content: flex-end;
+    }
+
+    h2{
+      font-size: 3vw;
     }
 
     li{
@@ -43,8 +50,12 @@
       cursor: pointer;
     }
 
+    a:hover{
+      color:#fff;
+      text-decoration: none;
+    }
+
     .top{
-      padding-top: 70px;
       height: 100%;
       width: 100%;
     }
@@ -52,16 +63,6 @@
 // 一覧ページ
     #maps {
       height: 100%;
-    }
-
-    header{
-      background-color: #006284;
-      opacity: 0.9;
-      position: fixed;
-      top:0;
-      right:0;
-      z-index: 2;
-      width: 100%;
     }
 
     .search-form-res{
@@ -88,6 +89,7 @@
       height: 90px;
       width: 90px;
       border-radius: 50%;
+      font-size: 1rem;
       background-color: #FF4F02;
       color: #fff;
     }
@@ -132,8 +134,24 @@
   }
 
 
+  /* infowindow */ 
+  .gm-ui-hover-effect{
+    display: none!important;
+  }
 
+  .infowin-link{
+    color:#666;
+  }
 
+  .infowin-link:hover{
+    color:#666;
+  }
+
+  .fa-smoking{
+    display:inline-block!important;
+    height: 20px!important;
+    width: 20px!important;
+  }
 
   /*ここからハンバーガーメニュー*/ 
 #nav-drawer {
@@ -154,7 +172,7 @@
   vertical-align: middle;
 }
 
-/*ハンバーガーアイコンをCSSだけで表現*/
+/*ハンバーガーアイコン*/
 #nav-open span, #nav-open span:before, #nav-open span:after {
   position: absolute;
   height: 3px;/*線の太さ*/
@@ -215,10 +233,25 @@
 }
 /*ここまでハンバーガーメニュー*/ 
 
+
+/*フッター*/
+footer{
+  background-color: #006284;
+}
+
+footer p{
+  font-weight: 40;
+  margin:0;
+}
+
 @media all and (max-width: 770px){
 
   header{
     justify-content: space-between;
+  }
+
+  .button{
+    font-size: 2vw;
   }
 
   .search-form-res{
@@ -251,6 +284,11 @@
   .main{
     width: 100%;
   }
+
+  .click-massage{
+    width:70%;
+  }
+
   .search-form-main{
     display: none;
   }

@@ -32,7 +32,7 @@ let success = (pos) => {
   var map = new google.maps.Map(mapArea, Options);  //マップを生成
   
   $(function(){
-    $("#setMypo").on('click', function(){
+    $(".setMypo").on('click', function(){
       map.setCenter(MyLatLng);
     });
   });
@@ -51,12 +51,18 @@ let success = (pos) => {
   var la = document.getElementById('areas_lat');
   var lo = document.getElementById('areas_log');
   var ad = document.getElementById('areas_address');
+  var cm = document.getElementById('areas_comment');
+  var st = document.getElementById('areas_status');
   var areas_la = la.getAttribute('data-areas-lat');
   var areas_lo = lo.getAttribute('data-areas-log');
   var areas_ad = ad.getAttribute('data-areas-address');
+  var areas_cm = cm.getAttribute('data-areas-comment');
+  var areas_st = st.getAttribute('data-areas-status');
   areas_la = areas_la.replace('[', '').replace(']', '').split(', ')
   areas_lo = areas_lo.replace('[', '').replace(']', '').split(', ')
   areas_ad = areas_ad.replace('["', '').replace('"]', '').split('", "')
+  areas_cm = areas_cm.replace('["', '').replace('"]', '').split('", "')
+  areas_st = areas_st.replace('["', '').replace('"]', '').split('", "')
   var len = areas_la.length;
   var features = [];
   for (i = 0; i < len; i++) {
@@ -75,7 +81,10 @@ let success = (pos) => {
   var infowin_free = [];
   for (var i = 0; i < len; i++) {
     //マーカーウィンドウ
-    infowin_free[i] = new google.maps.InfoWindow({ content: areas_ad[i] });
+    infowin_free[i] = new google.maps.InfoWindow({ content:
+        '<h4>'+areas_ad[i]+'</h4>'+
+      '<p>' + '<i class="fas fa-smoking"></i>'+areas_st[i]+'</p>'
+      });
     // mouseoverイベントを取得するListenerを追加
     google.maps.event.addListener(marker_free[i], 'mouseover', function (e) {
       for (var i = 0; i < len; i++) {
@@ -96,7 +105,7 @@ let success = (pos) => {
   // ボタンが押されたときのみピンが追加される
   $('.button').on('click', function () {
     //フェードインする
-    $('.click-massage').fadeIn("500", function () {
+    $('.click-massage').slideDown("500", function () {
       //コールバックで3秒後にフェードアウト	
       $(this).delay(3000).fadeOut("500");
     });
@@ -130,12 +139,18 @@ let success = (pos) => {
   var la_login = document.getElementById('login_areas_lat');
   var lo_login = document.getElementById('login_areas_log');
   var ad_login = document.getElementById('login_areas_address');
+  var cm_login = document.getElementById('login_areas_comment');
+  var st_login = document.getElementById('login_areas_status');
   var areas_la_login = la_login.getAttribute('login-data-areas-lat');
   var areas_lo_login = lo_login.getAttribute('login-data-areas-log');
   var areas_ad_login = ad_login.getAttribute('login-data-areas-address');
+  var areas_cm_login = cm_login.getAttribute('login-data-areas-comment');
+  var areas_st_login = st_login.getAttribute('login-data-areas-status');
   areas_la_login = areas_la_login.replace('[', '').replace(']', '').split(', ')
   areas_lo_login = areas_lo_login.replace('[', '').replace(']', '').split(', ')
   areas_ad_login = areas_ad_login.replace('["', '').replace('"]', '').split('", "')
+  areas_cm_login = areas_cm_login.replace('["', '').replace('"]', '').split('", "')
+  areas_st_login = areas_st_login.replace('["', '').replace('"]', '').split('", "')
   
   var new_areas_la_login = [];
   for (var i = 0; i < areas_la_login.length; ++i) {
@@ -169,9 +184,10 @@ let success = (pos) => {
     var contentString = '<div id="content">' +
       '<h2 id="firstHeading" class="firstHeading">'+areas_ad_login[i]+'</h2>' +
       '<div id="bodyContent">' +
-      '<p><b>Tokyo</b>は人多いよ〜</p>' +
-      '<p>詳細はこちら: <a href="">' +
-      'リンクをペッ</a> ' +
+      '<p class="info-status">' + areas_st_login[i] + '</p>' +
+      '<p>'+ areas_cm_login[i] + '</p>' +
+      '<p>詳細はこちら: <a class="infowin-link" href="#">' +
+      'お店のリンク</a> ' +
       '</p>' +
       '</div>' +
       '</div>';

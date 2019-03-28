@@ -5,8 +5,9 @@
       <label class="nav-unshown" id="nav-close" for="nav-input"></label>
       <div id="nav-content">
         <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-res mt-3"  do |f| %>
-          <%=  f.search_field :query, class: "form-control mr-sm-2", type:"search", placeholder:"例:レストラン" %>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+          <%=  f.search_field :query, class: "form-control", type:"search", placeholder:"例:レストラン" %>
+          <button class="btn btn-outline-success mr-2" type="submit"><i class="fas fa-search"></i></button>
+          <button type="button" class="setMypo btn btn-outline-success"><i class="fas fa-map-marker-alt"></i></button>
         <% end %>
         <ul>
           <li><%= link_to "ホーム", areas_path  %></li>
@@ -30,8 +31,9 @@
       </div>
   </div>
   <%= form_with url: areas_search_path, local: true, class:"form-inline search-form-main w-50"  do |f| %>
-    <%=  f.search_field :query, class: "form-control mr-sm-2", type:"search", placeholder:"例:レストラン" %>
-    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+    <%=  f.search_field :query, class: "form-control", type:"search", placeholder:"例:レストラン" %>
+    <button class="btn btn-outline-success mr-3" type="submit"><i class="fas fa-search"></i></button>
+    <button type="button" class="setMypo btn btn-outline-success"><i class="fas fa-map-marker-alt"></i></button>
   <% end %>
   <h1 class="my-0 py-2"><%= link_to "Smoke", areas_path  %></h1>
 </header>

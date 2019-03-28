@@ -19,6 +19,8 @@
           <%= form.label(:status, "コンビニ", value: "コンビニ")  %>
           <%= form.radio_button(:status, "駅") %>
           <%= form.label(:status, "駅", value: "駅")  %>
+          <%= form.radio_button(:status, "カフェ") %>
+          <%= form.label(:status, "カフェ", value: "カフェ")  %>
         </p>
         <%= form.label :comment %>
         <%= form.text_area :comment, class: "form-control" %>
