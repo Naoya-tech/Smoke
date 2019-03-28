@@ -1,4 +1,6 @@
 class AreasController < ApplicationController
+  include Common
+  
   def index 
     @areas = Area.where(logged_in: false)
     @areas_lat = []
@@ -6,28 +8,15 @@ class AreasController < ApplicationController
     @areas_address = []
     @areas_comment = []
     @areas_status = []
-    @areas.each do |area|
-      @areas_lat.push(area.latitude)
-      @areas_log.push(area.longitude)
-      @areas_address.push(area.address)
-      @areas_comment.push(area.comment)
-      @areas_status.push(area.status)
-    end
-    begin
-      
+    free_user_info
+    begin 
       @login_areas = Area.where(logged_in: true)
       @login_areas_lat = []
       @login_areas_log = []
       @login_areas_address = []
       @login_areas_comment = []
       @login_areas_status = []
-      @login_areas.each do |area|
-        @login_areas_lat.push(area.latitude)
-        @login_areas_log.push(area.longitude)
-        @login_areas_address.push(area.address)
-        @login_areas_comment.push(area.comment)
-        @login_areas_status.push(area.status)
-      end
+      login_user_info
     rescue
     end
     @area = Area.new
@@ -38,9 +27,7 @@ class AreasController < ApplicationController
 
   def search
     @areas = Area.where(status: params[:query])
-    
     @areas_search = []
-    
     @areas.each do |area|
       @areas_search.push(area.address)
     end
@@ -52,8 +39,7 @@ class AreasController < ApplicationController
       @areas_log.push(area.longitude)
       @areas_address.push(area.address)
     end
-    render "index"
-    
+    render "index" 
   end
 
   def create
